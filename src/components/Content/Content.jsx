@@ -1,5 +1,10 @@
 import React from 'react'
+import { Login } from '../Login/Login'
 
 export function Content() {
-	return <div>Content</div>
+	return (
+		<section className={`content max-width`}>
+			<Login />
+		</section>
+	)
 }

@@ -1,0 +1,44 @@
+.login {
+	margin-top: 2rem;
+	width: 100%;
+
+	.form form {
+		margin-inline: auto;
+		display: flex;
+		flex-flow: column;
+
+		label {
+			margin-top: 0.75rem;
+			font-weight: 600;
+			font-size: 1.125rem;
+		}
+
+		input {
+			margin-top: 0.1rem;
+			border: 2px solid black;
+			padding: 0.35rem;
+			font-size: 1.125rem;
+			outline: none;
+
+			&:focus {
+				box-shadow: 0 0 0 2px rgb(0, 0, 0, 0.3);
+			}
+		}
+
+		button {
+			margin-top: 0.75rem;
+			padding: 0.75rem 1.5rem;
+			min-width: 8.75rem;
+			width: max-content;
+			font-weight: 600;
+			font-size: 1.125rem;
+			background-color: black;
+			color: white;
+
+			&:hover {
+				cursor: pointer;
+				background-color: #272727;
+			}
+		}
+	}
+}
