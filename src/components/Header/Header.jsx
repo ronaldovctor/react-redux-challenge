@@ -4,7 +4,7 @@ import styles from './Header.module.scss'
 export function Header() {
 	return (
 		<section className={styles.header}>
-			<div className={'content'}>
+			<div className={`content ${styles.content}`}>
 				<h1>Mini Dogs</h1>
 				<i>icon</i>
 			</div>
