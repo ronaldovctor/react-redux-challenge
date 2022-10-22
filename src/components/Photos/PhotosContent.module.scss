@@ -2,6 +2,7 @@ li {
 	margin: 1rem 0;
 	display: grid;
 	grid-template-columns: 80px 1fr auto;
+	grid-template-rows: 80px;
 	align-items: center;
 	gap: 1rem;
 	padding: 0.5rem;
