@@ -1,6 +1,7 @@
 import getLocalStorage from './helper/getLocalStorage'
 import createAsyncSlice from './helper/createAsyncSlice'
 import { combineReducers } from '@reduxjs/toolkit'
+import { removePhotos } from './photo'
 
 const token = createAsyncSlice({
 	name: 'token',
@@ -38,6 +39,11 @@ const token = createAsyncSlice({
 				}
 			},
 		},
+		removeToken(state) {
+			state.loading = false
+			state.data = null
+			state.error = null
+		},
 	},
 })
 
@@ -52,12 +58,20 @@ const user = createAsyncSlice({
 			},
 		},
 	}),
+	reducers: {
+		removeUser(state) {
+			state.data = null
+		},
+	},
 })
 
 const fetchToken = token.asyncAction
 const fetchUser = user.asyncAction
 const reducer = combineReducers({ token: token.reducer, user: user.reducer })
 export default reducer
+
+const { removeToken } = token.actions
+const { removeUser } = user.actions
 
 export const login = (user) => async (dispatch) => {
 	// Action creator
@@ -72,9 +86,21 @@ export const login = (user) => async (dispatch) => {
 export const autoLogin = () => async (dispatch, getState) => {
 	try {
 		const state = getState()
-		const { token } = state.login.token.data
-		if (token) await dispatch(fetchUser(token))
+		console.log(state)
+		if (state.login.token.data) {
+			const { token } = state.login.token.data
+			if (token) await dispatch(fetchUser(token))
+		}
 	} catch (error) {
 		throw new Error(error.message)
 	}
+}
+
+export const logout = () => async (dispatch) => {
+	try {
+		window.localStorage.removeItem('token')
+		dispatch(removePhotos())
+		dispatch(removeToken())
+		dispatch(removeUser())
+	} catch (error) {}
 }

@@ -1,6 +1,7 @@
 .header {
 	width: 100%;
 	margin-top: 4rem;
+	margin-bottom: 1.5rem;
 
 	.content {
 		display: flex;
@@ -10,6 +11,19 @@
 		h1 {
 			font-size: 1.5rem;
 			font-weight: 600;
+		}
+
+		button {
+			width: 0.75rem;
+			height: 0.75rem;
+			border-radius: 50%;
+			border: 2px solid black;
+			cursor: pointer;
+			margin: auto 0;
+
+			&.loading {
+				background: #ff6600;
+			}
 		}
 	}
 }

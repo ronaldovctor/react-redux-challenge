@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Loading } from '../../helper/Loading'
 import { autoLogin, login } from '../../store/login'
 import styles from './Login.module.scss'
 

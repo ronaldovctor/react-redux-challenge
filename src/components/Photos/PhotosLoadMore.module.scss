@@ -1,0 +1,16 @@
+.button {
+	margin: 1rem 0 0 calc(100% - 3.125rem);
+	width: 2.725rem;
+	height: 2.725rem;
+	border-radius: 50%;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: 0.1s;
+
+	&:hover {
+		scale: 1.1;
+	}
+}

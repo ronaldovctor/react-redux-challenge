@@ -1,0 +1,33 @@
+.loading {
+	margin: 2rem 0;
+	display: grid;
+	place-content: center;
+	width: 100%;
+
+	.bar {
+		width: 10rem;
+		height: 0.3rem;
+		background-color: #e9e9e9;
+		border-radius: 5px;
+		position: relative;
+		overflow: hidden;
+
+		&::before {
+			position: absolute;
+			content: '';
+			height: 100%;
+			width: 2.5rem;
+			animation: load 0.4s linear infinite;
+			background-color: black;
+		}
+	}
+
+	@keyframes load {
+		0% {
+			left: -2.5rem;
+		}
+		100% {
+			left: 10rem;
+		}
+	}
+}
