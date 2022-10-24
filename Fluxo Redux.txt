@@ -1,0 +1,104 @@
+- REDUX INICIAL: 
+Temos a criação de um reducer que recebe como parâmetro por padrão um 'state' e uma 'action'.
+Pode ser atribuído ao state algum valor, o qual seria o 'initialState', a action que será lida pelo
+reducer é um objeto que contem o 'type', sua descrição, bem como o payload, o valor passado na action
+em questão, podendo também conter mais parâmetros.
+A action é enviada por meio da função 'dispatch' executada pela 'store' criada por meio do
+'Redux.createStore', a qual recebe como parâmetro o reducer que será utilizado ou a combinação de 
+vários reducers por meio do 'Redux.combineReducers', recebe como parâmetro um objeto com os nomes
+dos reducers, e como também a configuração do 'DEVTOOLS', extensão para mapear os estados no browser.
+Por meio do 'store' também é possível executar a função de 'subscribe', a mesma executará uma outra
+função por meio de callback através de uma função anônima que acontecerá sempre que o 'state' tiver
+alteração.
+
+
+- REDUX MIDDLEWARE:
+É uma função que ocorre logo após o 'dispatch' da 'action' ocorrer, ela funciona como um leitor para 
+verificar 'action' e 'state' realizando alguma funcionalidade caso necessário.
+Utilizando-se do recurso das 'Closeours' para armazenar na memória a 'store', por meio dela podemos
+executar a função 'getState' para verificar os estados atuais ou executar o 'dispatch' bem como passar
+como parâmetro como no caso do middleware padrão o 'thunk', aprensetam a seguinta estrutura.
+`
+const thunk = (store) => (next) => (action) => {
+	if(typeof action === 'function') action.(store.dispatch)
+	return next(action)
+}
+`
+*Extra thunk: é um middleware utilizado para casos onde uma ação colateral é realizada em detrimento
+da mudança do 'state'.
+Executamos uma função da seguinte estrutura:
+`
+const name = (payload) => (dispatch) => {
+	...
+}
+`
+Na primeira execução desta função o middleware 'thunk' executa o retorno da mesma, a qual receberá como
+parâmetro o 'store.dispatch' permitindo realizar novos 'dispatchs' mas fora do reducer, além do mais
+utilizando novamente o recurso das 'Closeours' mantém armazenado na memória o 'payload' para ser
+reutilizado dentro da mesma.
+
+A combinação e aplicação de multiplos middlewares se da pela seguinte estrutura:
+`
+const { applyMiddleware, compose, combineReducers } = Redux
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const enhancer = composeEnhancers(applyMiddleware(thunk, localStorage))
+`
+
+Já a aplicação dos reducers: 
+`
+const reducer = combineReducers({token, user})
+`
+**o 'combineReducers pode ser utilizado para combinar reducers que tenham relação com determinada
+funcionalidade e ser novamente passado dentro de outro 'combineReducers' através da variável.
+
+A criação da 'store' se da por meio da funcão 'createStore' que irá receber como parâmetro os 'reducers'
+que se encontram 'combinados dentro de uma variável' bem como os 'middlewares'.
+Por meio da 'store' é possível recuperar o estados dos diversos 'reducers' colocando ao final da mesma
+'.getState()' e também a função responsável por disparar novas 'actions' que serão lidas tanto pelos
+'middlewares' quanto pelos 'reducers'.
+
+- REDUX IMMER:
+Com a utilização do 'immer' podemos fazer a criação dos reducers por meio do 'immer.produce', o qual
+recebe como parâmetro uma arrow function de 'state' e 'action', dentro da mesma ocorre a verificação
+do tipo da action e a atualização do 'state' e como segundo parâmetro o 'initialState'.
+O reducer criado dentro do 'immer.produce' permite a alteração direta do state, sem a precisar retornar
+seu valor junto a uma modificação.
+
+
+- REDUX REDUX TOOLKIT:
+A criação das estruturas dos 'reducers' e 'initialState' vai se dar dentro do 'createSlice', que irá
+receber como parâmetro um objeto com as seguintes propriedades:
+name: 'nome do slice',
+initialState: 'qualquer valor, mas normalmente sendo um objeto',
+reducers: 'reducers padrões'
+
+O 'middleware thunk' que antes era preciso ser construído agora já é padrão da ferramenta.
+Os 'reducers' agora serão combinados pela função 'combineReducers' também fornecido pela lib.
+A 'store' é criada pela função 'configureStore' que irá receber um objecto com o a variável que contém
+os reducers e posteriormente os 'middlewares' utilizados dentro de um array.
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
